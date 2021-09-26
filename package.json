@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "14.16.1"
+  },
   "name": "main-bareng-apps",
   "version": "1.0.0",
   "private": true,
