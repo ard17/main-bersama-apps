@@ -20,18 +20,22 @@ export default class AuthController {
                 ['user', 'owner']
             ),
         })
-        const payload = await request.validate({ schema: userSchema })
-        console.log(payload);
 
         try {
+            await request.validate({ schema: userSchema })
             const user = new User()
-            const newUser = await user.fill(payload).save()
+            const newUser = await user.fill({
+                name: request.input('name'),
+                email: request.input('email'),
+                password: request.input('password'),
+                role: request.input('role')
+            }).save()
             const otp_code = Math.floor(100000 + Math.random() * 900000)
             await Database.table('otp_codes').insert({ otp_code: otp_code, user_id: newUser.id })
             await Mail.send((message) => {
                 message
                     .from('admin@mainbersama.com')
-                    .to(payload.email)
+                    .to(request.input('email'))
                     .subject('Verification Code')
                     .htmlView('emails/otp_verify', { otp_code: otp_code })
             })

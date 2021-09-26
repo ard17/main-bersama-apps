@@ -17,9 +17,12 @@ export default class FieldsController {
 
   public async store({ params, request, response }: HttpContextContract) {
     try {
-      const payload = await request.validate(FieldValidator)
+      await request.validate(FieldValidator)
       const venue = await Venue.findOrFail(params.venue_id)
-      await venue.related('fields').create(payload)
+      await venue.related('fields').create({
+        name: request.input('name'),
+        type: request.input('type')
+      })
       response.created({ message: 'created' })
     } catch (err) {
       response.badRequest({ message: 'failed', error: err.messages })

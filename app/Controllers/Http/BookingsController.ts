@@ -12,7 +12,7 @@ export default class BookingsController {
 
   public async store({ params, request, response, auth }: HttpContextContract) {
     try {
-      const payload = await request.validate(BookingValidator)
+      await request.validate(BookingValidator)
       const field_id = request.input('field_id')
       const venue_id = params.venue_id
       const user = auth.user?.id
