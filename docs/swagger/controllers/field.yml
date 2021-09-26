@@ -1,0 +1,148 @@
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+/api/v1/venues/{venue_id}/fields:
+  #   get:
+  #     security:
+  #       - bearerAuth: []
+  #     tags:
+  #       - Field
+  #     summary: Get Data Field
+  #     parameters:
+  #       - in: path
+  #         name: venue_id
+  #         schema:
+  #           type: integer
+  #         required: true
+  #         description: ID Venue
+  #       - name: name
+  #         description: Name of Field
+  #         in: query
+  #         required: false
+  #         type: string
+  #     responses:
+  #       200:
+  #         description: Success
+  #       401:
+  #         description: Unauthorized access
+  #       404:
+  #         description: Row not found
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - Venue
+    summary: Mendaftarkan Lapangan Baru untuk Venue
+    parameters:
+      - in: path
+        name: venue_id
+        schema:
+          type: integer
+        required: true
+        description: ID Venue
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 4
+                example: "Field Baru"
+                required: true
+              type:
+                type: string
+                enum: ["futsal", "mini soccer", "basketball"]
+                example: "futsal"
+                required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      422:
+        description: Unprocessable Entity
+# /api/v1/fields/{id}:
+#   get:
+#     security:
+#       - bearerAuth: []
+#     tags:
+#       - Field
+#     summary: Get Data Field with a certain id and venue, booking details
+#     parameters:
+#       - in: path
+#         name: id
+#         schema:
+#           type: integer
+#         required: true
+#         description: ID Field
+#     responses:
+#       200:
+#         description: Success
+#       401:
+#         description: Unauthorized access
+#       404:
+#         description: Row not found
+#   put:
+#     security:
+#       - bearerAuth: []
+#     tags:
+#       - Field
+#     summary: Update Data Field with a certain id
+#     parameters:
+#       - in: path
+#         name: id
+#         schema:
+#           type: integer
+#         required: true
+#         description: ID Field
+#     requestBody:
+#       required: true
+#       content:
+#         application/json:
+#           schema:
+#             type: object
+#             properties:
+#               name:
+#                 type: string
+#                 minLength: 4
+#                 example: "Field Baru update"
+#                 required: false
+#               type:
+#                 type: string
+#                 enum: ["futsal", "mini soccer", "basketball"]
+#                 example: "basketball"
+#                 required: false
+#     produces:
+#       - application/json
+#     responses:
+#       200:
+#         description: Updated
+#       401:
+#         description: Unauthorized access
+#   delete:
+#     security:
+#       - bearerAuth: []
+#     tags:
+#       - Field
+#     summary: Delete Data Field with a certain id
+#     parameters:
+#       - in: path
+#         name: id
+#         schema:
+#           type: integer
+#         required: true
+#         description: ID Field
+#     responses:
+#       200:
+#         description: Deleted
+#       401:
+#         description: Unauthorized access
+#       404:
+#         description: Row not found

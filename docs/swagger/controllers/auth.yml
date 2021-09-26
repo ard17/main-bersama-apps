@@ -1,0 +1,95 @@
+/api/v1/register:
+  post:
+    tags:
+      - Auth
+    summary: Register New User
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "Player One"
+                required: true
+              email:
+                type: string
+                format: email
+                example: "player@mail.com"
+                required: true
+              password:
+                type: string
+                example: "abcd1234"
+                required: true
+              password_confirmation:
+                type: string
+                example: "abcd1234"
+                required: true
+              role:
+                type: string
+                enum: [owner, user]
+                example: "user"
+                required: false
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      422:
+        description: Unprocessable Entity
+/api/v1/otp-confirmation:
+  post:
+    tags:
+      - Auth
+    summary: OTP Confirmation
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+                example: "player@mail.com"
+                required: true
+              otp_code:
+                type: string
+                example: "440946"
+                required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      400:
+        description: Bad Request
+/api/v1/login:
+  post:
+    tags:
+      - Auth
+    summary: Login User
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+                example: "player@mail.com"
+                required: true
+              password:
+                type: string
+                example: "abcd1234"
+                required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success

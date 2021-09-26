@@ -1,0 +1,188 @@
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+/api/v1/bookings:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - Booking
+    summary: Get Data Booking
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      404:
+        description: Row not found
+  # post:
+  #   security:
+  #     - bearerAuth: []
+  #   tags:
+  #     - Booking
+  #   summary: Create New Booking
+  #   parameters:
+  #     - in: path
+  #       name: field_id
+  #       schema:
+  #         type: integer
+  #       required: true
+  #       description: ID Field
+  #   requestBody:
+  #     required: true
+  #     content:
+  #       application/json:
+  #         schema:
+  #           type: object
+  #           properties:
+  #             play_date_start:
+  #               type: string
+  #               format: date-time
+  #               example: "2021-09-24 15:30:00"
+  #               required: true
+  #             play_date_end:
+  #               type: string
+  #               format: date-time
+  #               example: "2021-09-24 17:30:00"
+  #               required: true
+  #   produces:
+  #     - application/json
+  #   responses:
+  #     200:
+  #       description: Success
+  #     401:
+  #       description: Unauthorized access
+  #     422:
+  #       description: Unprocessable Entity
+/api/v1/bookings/{id}:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - Booking
+    summary: Get Data Booking with a certain id and players details
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: ID Booking
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      404:
+        description: Row not found
+  # put:
+  #   security:
+  #     - bearerAuth: []
+  #   tags:
+  #     - Booking
+  #   summary: Update Data booking with a certain id
+  #   parameters:
+  #     - in: path
+  #       name: id
+  #       schema:
+  #         type: integer
+  #       required: true
+  #       description: ID Booking
+  #   requestBody:
+  #     required: true
+  #     content:
+  #       application/json:
+  #         schema:
+  #           type: object
+  #           properties:
+  #             play_date_start:
+  #               type: string
+  #               format: date-time
+  #               example: "2021-09-24 15:30:00"
+  #               required: false
+  #             play_date_end:
+  #               type: string
+  #               format: date-time
+  #               example: "2021-09-24 17:30:00"
+  #               required: false
+  #   produces:
+  #     - application/json
+  #   responses:
+  #     200:
+  #       description: Updated
+  #     401:
+  #       description: Unauthorized access
+  # delete:
+  #   security:
+  #     - bearerAuth: []
+  #   tags:
+  #     - Booking
+  #   summary: Delete Data Booking with a certain id
+  #   parameters:
+  #     - in: path
+  #       name: id
+  #       schema:
+  #         type: integer
+  #       required: true
+  #       description: ID Booking
+  #   responses:
+  #     200:
+  #       description: Deleted
+  #     401:
+  #       description: Unauthorized access
+  #     404:
+  #       description: Row not found
+/api/v1/bookings/{id}/join:
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - Booking
+    summary: Join Booking
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: ID Booking
+    responses:
+      200:
+        description: Success Join
+      401:
+        description: Unauthorized access
+/api/v1/bookings/{id}/unjoin:
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - Booking
+    summary: Unjoin Booking
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: ID Booking
+    responses:
+      200:
+        description: Success Unjoin
+      401:
+        description: Unauthorized access
+/api/v1/schedules:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - Booking
+    summary: Get schedule user
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      404:
+        description: Row not found

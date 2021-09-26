@@ -1,0 +1,185 @@
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+/api/v1/venues:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - Venue
+    summary: Get Data Venue
+    parameters:
+      - name: type
+        description: Type of field (futsal, minisoccer, soccer, basketball, volleyball)
+        in: query
+        required: false
+        type: string
+        example: futsal
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      404:
+        description: Row not found
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - Venue
+    summary: Create Data Venue
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 4
+                example: "Venue Baru"
+                required: true
+              address:
+                type: string
+                example: "Jl. Baru jadi"
+                required: true
+              phone:
+                type: string
+                example: "+6288866337744"
+                required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      422:
+        description: Unprocessable Entity
+/api/v1/venues/{id}:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - Venue
+    summary: Get Data Venue with a certain id and All Related Field
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: ID Venue
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      404:
+        description: Row not found
+  put:
+    security:
+      - bearerAuth: []
+    tags:
+      - Venue
+    summary: Update Data Venue with a certain id
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: ID Venue
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 4
+                example: "Venue Baru"
+                required: false
+              address:
+                type: string
+                example: "Jl. Baru jadi"
+                required: false
+              phone:
+                type: string
+                example: "+6288866337744"
+                required: false
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Updated
+      401:
+        description: Unauthorized access
+  delete:
+    security:
+      - bearerAuth: []
+    tags:
+      - Venue
+    summary: Delete Data Venue with a certain id
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: ID Venue
+    responses:
+      200:
+        description: Deleted
+      401:
+        description: Unauthorized access
+      404:
+        description: Row not found
+/api/v1/venues/{id}/bookings:
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - Venue
+    summary: Book a field
+    parameters:
+      - name: id
+        description: Venue ID
+        in: path
+        required: true
+        type: integer
+        example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              field_id:
+                type: integer
+                minLength: 4
+                example: "1"
+                required: true
+              play_date_start:
+                type: string
+                example: "2021-09-24 15:30:00"
+                required: true
+              play_date_end:
+                type: string
+                example: "2021-09-24 17:30:00"
+                required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized access
+      422:
+        description: Unprocessable Entity
