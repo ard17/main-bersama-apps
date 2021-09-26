@@ -1,7 +1,8 @@
 # API Aplikasi Main Bersama - NodeJS Adonis
-nama: ardiansyah
-email: 4rdi17@gmail.com
+nama: ardiansyah \
+email: 4rdi17@gmail.com \
 
+## Link deploy heroku
 https://mainbareng.herokuapp.com/
 ## Documentation
 https://mainbareng.herokuapp.com/docs 
